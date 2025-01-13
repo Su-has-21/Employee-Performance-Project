@@ -1,4 +1,4 @@
-# Employee Appraisal Project
+# Employee Performance Project
 
 This project provides a solution for creating a bell curve for performance appraisal based on employee details, rating categories, and appraisal ranges. It includes a backend developed using Spring Boot and a simple frontend using HTML and JavaScript.
 
