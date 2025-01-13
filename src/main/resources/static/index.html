@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Appraisal Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        .container {
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #333;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background: #fff;
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Appraisal Dashboard</h1>
+
+        <section>
+            <h2>Actual Percentages</h2>
+            <ul id="percentages"></ul>
+        </section>
+
+        <section>
+            <h2>Deviation from Standard</h2>
+            <ul id="deviation"></ul>
+        </section>
+
+        <section>
+            <h2>Suggested Adjustments</h2>
+            <ul id="suggestions"></ul>
+        </section>
+    </div>
+
+    <script>
+        async function fetchData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        }
+
+        async function populateData() {
+            const percentages = await fetchData('/api/appraisal/percentages');
+            const deviation = await fetchData('/api/appraisal/deviation');
+            const suggestions = await fetchData('/api/appraisal/suggestions');
+
+            const percentagesList = document.getElementById('percentages');
+            const deviationList = document.getElementById('deviation');
+            const suggestionsList = document.getElementById('suggestions');
+
+            if (percentages) {
+                Object.entries(percentages).forEach(([category, percentage]) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${category}: ${percentage.toFixed(2)}%`;
+                    percentagesList.appendChild(li);
+                });
+            }
+
+            if (deviation) {
+                Object.entries(deviation).forEach(([category, deviationValue]) => {
+                    const li = document.createElement('li');
+                    li.textContent = `${category}: ${deviationValue.toFixed(2)}%`;
+                    deviationList.appendChild(li);
+                });
+            }
+
+            if (suggestions) {
+                suggestions.forEach(employee => {
+                    const li = document.createElement('li');
+                    li.textContent = `${employee.name} (Rating: ${employee.rating})`;
+                    suggestionsList.appendChild(li);
+                });
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', populateData);
+    </script>
+</body>
+</html>
