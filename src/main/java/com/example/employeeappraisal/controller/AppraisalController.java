@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/appraisal")
@@ -31,4 +34,5 @@ public class AppraisalController {
     public List<Employee> getSuggestedAdjustments() {
         return appraisalService.suggestRatingAdjustments();
     }
+    
 }

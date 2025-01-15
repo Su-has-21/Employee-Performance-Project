@@ -13,7 +13,10 @@ public class Employee {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(name = "rating")
+    private char rate;
+    
+    @Transient
     private int rating;
 
     public Employee() {}
@@ -23,12 +26,22 @@ public class Employee {
         this.rating = rating;
     }
 
+    
     // Getters and Setters
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    
+    public char getRate() {
+		return rate;
+	}
+
+	public void setRate(char rate) {
+		this.rate = rate;
+	}
+
+	public void setId(Long id) {
         this.id = id;
     }
 
@@ -41,7 +54,16 @@ public class Employee {
     }
 
     public int getRating() {
-        return rating;
+        if(this.rate=='A')
+        	return 1;
+        else if(this.rate=='B')
+        	return 2;
+        else if(this.rate=='C')
+        	return 3;
+        else if(this.rate=='D')
+        	return 4;
+        else
+        	return 5;
     }
 
     public void setRating(int rating) {

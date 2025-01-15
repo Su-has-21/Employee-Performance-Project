@@ -74,6 +74,20 @@ This project provides a solution for creating a bell curve for performance appra
 
 ---
 
+## Database Configuration
+
+### MySQL 
+1. Create a database named `appraisaldb`.
+2. Update `src/main/resources/application.properties`:
+   ```properties
+   spring.datasource.url=jdbc:mysql://localhost:3306/appraisaldb
+   spring.datasource.username=<your-username>
+   spring.datasource.password=<your-password>
+   spring.jpa.hibernate.ddl-auto=update
+   spring.jpa.database-platform=org.hibernate.dialect.MySQL8Dialect
+   ```
+
+---
 
 ## Project Structure
 
